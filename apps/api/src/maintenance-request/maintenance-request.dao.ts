@@ -13,14 +13,13 @@ export interface MaintenanceRequestData {
   requests: MaintenanceRequestDB[];
 }
 
-const adapter = new FileSync<MaintenanceRequestDB>('./db/maint-requests.json')
-const db = low(adapter)
+const adapter = new FileSync<MaintenanceRequestDB>('./db/maint-requests.json');
+const db = low(adapter);
 
 db.defaults({ requests: [] }).write();
 
 @Injectable()
 export class MaintenanceRequestDao {
-
   private get collection(): any {
     return db.get('requests');
   }
@@ -35,13 +34,31 @@ export class MaintenanceRequestDao {
       .push({
         ...id,
         ...maintenanceRequest,
+        isClosed: false,
         submittedAt: new Date(),
       })
-      .write()
+      .write();
     return id;
   }
 
   async getMaintenanceRequest(id: string): Promise<MaintenanceRequestDB> {
     return await this.collection.find({ id }).value();
+  }
+
+  async getAllMaintenanceRequests(): Promise<MaintenanceRequest[]> {
+    return await this.collection.value();
+  }
+
+  async getOpenMaintenanceRequests(): Promise<MaintenanceRequest[]> {
+    const all = await this.collection.value();
+    return all.filter((req) => !req.isClosed);
+  }
+
+  async closeMaintenanceRequest(id: string): Promise<MaintenanceRequestDB> {
+    return await this.collection
+      .chain()
+      .find({ id })
+      .assign({ isClosed: true })
+      .write();
   }
 }

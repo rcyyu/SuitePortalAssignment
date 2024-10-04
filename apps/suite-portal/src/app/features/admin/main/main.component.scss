@@ -1,0 +1,16 @@
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.mat-row {
+  .mat-cell {
+    cursor: pointer;
+  }
+
+  .mat-column-close {
+    &:hover {
+      font-weight: bold;
+    }
+  }
+}
