@@ -1,49 +1,51 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { Observable } from "rxjs";
-import { LoginRequest, LoginResponse } from "@suiteportal/api-interfaces";
-import { Router } from "@angular/router";
+import { LoginRequest, LoginResponse } from '@suiteportal/api-interfaces';
+import { Router } from '@angular/router';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class AuthService {
-    constructor(private readonly http: HttpClient, private readonly router: Router) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly router: Router
+  ) {}
 
-    private _isAdmin = false;
-    private _sessionToken = null;
-    private _isAuthenticated = false;
+  private _isAdmin = false;
+  private _sessionToken = null;
+  private _isAuthenticated = false;
 
-    private static readonly AUTH_API_ENDPOINT = `${environment.apiUrl}/auth`;
-    
-    getIsAuthenticated(): boolean {
-        return this._isAuthenticated;
-    }
+  private static readonly AUTH_API_ENDPOINT = `${environment.apiUrl}/auth`;
 
-    getIsAdmin(): boolean {
-        return this._isAdmin;
-    }
+  getIsAuthenticated(): boolean {
+    return this._isAuthenticated;
+  }
 
-    getSessionToken(): string {
-        return this._sessionToken
-    }
+  getIsAdmin(): boolean {
+    return this._isAdmin;
+  }
 
-    login(request: LoginRequest) {
-        const url = `${AuthService.AUTH_API_ENDPOINT}/login`;
-        this.http.post<LoginResponse>(url, request).subscribe({
-            next: (res) => {
-                this._isAdmin = res.isAdmin;
-                this._sessionToken = res.sessionToken;
-                this._isAuthenticated = res.isAuthenticated;
+  getSessionToken(): string {
+    return this._sessionToken;
+  }
 
-                if (res.isAuthenticated) {
-                    this.router.navigate(['/home'])
-                }
-            },
-            error: (err) => {
-                console.error(err)
-            }
-        })
-    }
+  login(request: LoginRequest) {
+    const url = `${AuthService.AUTH_API_ENDPOINT}/login`;
+    this.http.post<LoginResponse>(url, request).subscribe({
+      next: (res) => {
+        this._isAdmin = res.isAdmin;
+        this._sessionToken = res.sessionToken;
+        this._isAuthenticated = res.isAuthenticated;
+
+        if (res.isAuthenticated) {
+          this.router.navigate(['/home']);
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
 }

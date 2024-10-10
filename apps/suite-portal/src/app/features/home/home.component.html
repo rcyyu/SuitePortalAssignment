@@ -8,10 +8,19 @@
       </mat-card-header>
 
       <mat-card-content>
-        <form [formGroup]="maintenanceForm" (ngSubmit)="onSubmit()" class="maint-form">
+        <form
+          [formGroup]="maintenanceForm"
+          (ngSubmit)="onSubmit()"
+          class="maint-form"
+        >
           <mat-form-field>
             <mat-label for="unitNumber">Apartment Unit #</mat-label>
-            <input id="unitNumber" matInput type="text" formControlName="unitNumber" />
+            <input
+              id="unitNumber"
+              matInput
+              type="text"
+              formControlName="unitNumber"
+            />
           </mat-form-field>
 
           <mat-form-field>
@@ -25,25 +34,42 @@
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label for="serviceType" >Service Type</mat-label>
+            <mat-label for="serviceType">Service Type</mat-label>
             <mat-select id="serviceType" formControlName="serviceType">
-              <mat-option *ngFor="let serviceType of serviceTypes" [value]="serviceType">
-                {{serviceType}}
+              <mat-option
+                *ngFor="let serviceType of serviceTypes"
+                [value]="serviceType"
+              >
+                {{ serviceType }}
               </mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label for="summary">Summary</mat-label>
-            <input id="summary" matInput type="text" formControlName="summary" />
+            <input
+              id="summary"
+              matInput
+              type="text"
+              formControlName="summary"
+            />
           </mat-form-field>
 
           <mat-form-field>
             <mat-label for="details">Details</mat-label>
-            <textarea id="details" matInput formControlName="details"></textarea>
+            <textarea
+              id="details"
+              matInput
+              formControlName="details"
+            ></textarea>
           </mat-form-field>
 
-          <button type="submit" [disabled]="!maintenanceForm.valid" mat-raised-button color="accent">
+          <button
+            type="submit"
+            [disabled]="!maintenanceForm.valid"
+            mat-raised-button
+            color="accent"
+          >
             Submit
           </button>
         </form>

@@ -31,6 +31,6 @@ export class AuthDao {
 
   async validateUserSessionToken(sessionToken: string): Promise<boolean> {
     // TODO: check if the token matches the current user too
-    return await this.collection.has({ sessionToken })
+    return await this.collection.has({ sessionToken });
   }
 }

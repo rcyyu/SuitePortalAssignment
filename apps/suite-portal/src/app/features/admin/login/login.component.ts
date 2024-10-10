@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ALL_SERVICE_TYPES, LoginRequest } from '@suiteportal/api-interfaces';
+import { LoginRequest } from '@suiteportal/api-interfaces';
 import { AuthService } from '../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'admin-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup
+  loginForm: FormGroup;
 
   constructor(private readonly authService: AuthService) {}
 
@@ -24,5 +24,4 @@ export class LoginComponent implements OnInit {
     const request: LoginRequest = this.loginForm.value;
     this.authService.login(request);
   }
-
 }

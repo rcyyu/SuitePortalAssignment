@@ -51,7 +51,7 @@ export class MaintenanceRequestDao {
 
   async getOpenMaintenanceRequests(): Promise<MaintenanceRequest[]> {
     const all = await this.collection.value();
-    return all.filter((req) => !req.isClosed);
+    return all.filter((req: MaintenanceRequest) => !req.isClosed);
   }
 
   async closeMaintenanceRequest(id: string): Promise<MaintenanceRequestDB> {
