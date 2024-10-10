@@ -34,18 +34,18 @@ export class AuthService {
   login(request: LoginRequest) {
     const url = `${AuthService.AUTH_API_ENDPOINT}/login`;
     this.http.post<LoginResponse>(url, request).subscribe({
-      next: (res) => {
-        this._isAdmin = res.isAdmin;
-        this._sessionToken = res.sessionToken;
-        this._isAuthenticated = res.isAuthenticated;
+        next: (res) => {
+            this._isAdmin = res.isAdmin;
+            this._sessionToken = res.sessionToken;
+            this._isAuthenticated = res.isAuthenticated;
 
-        if (res.isAuthenticated) {
-          this.router.navigate(['/home']);
-        }
-      },
-      error: (err) => {
-        console.error(err);
-      },
+            if (res.isAuthenticated) {
+            this.router.navigate(['/home']);
+            }
+        },
+        error: (err) => {
+            console.error(err)
+        },
     });
   }
 }

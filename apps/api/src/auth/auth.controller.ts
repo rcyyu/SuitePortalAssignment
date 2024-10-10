@@ -32,7 +32,7 @@ export class AuthController {
       res
     );
 
-    if (!authentication) {
+    if (!authentication || !authentication.sessionToken || !authentication.isAuthenticated) {
       throw new UnauthorizedException('Invalid login credentials');
     }
 

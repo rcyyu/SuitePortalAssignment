@@ -23,5 +23,6 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const request: LoginRequest = this.loginForm.value;
     this.authService.login(request);
+    // TODO: handle errors from auth
   }
 }

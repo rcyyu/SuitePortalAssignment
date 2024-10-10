@@ -21,7 +21,7 @@ export class AuthService {
     const userLogin = await this.authDao.getUserLogin(loginRequest.email);
 
     // TODO: realistically decrypt db password
-    const success = userLogin && userLogin.password == userLogin.password;
+    const success = userLogin && loginRequest.password == userLogin.password;
 
     if (success) {
       const payload = {
